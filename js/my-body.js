@@ -7,36 +7,46 @@ export class myBody extends HTMLElement{
     async components(){
         return await (await fetch("view/my-body.html")).text();
     }
-
-    countSelect(e){
+    async add(e){
         let $ = e.target;
-        if($.nodeName == "BUTTON"){
-            let inputAmout = document.querySelectorAll(`#${$.dataset.row} input`);
-            if($.innerHTML == "-"){
-                inputAmout.forEach(e => {
-                    if(e.name == "Acount" && e.value == 0){
-                        document.querySelector(`#${$.dataset.row}`).remove();
-                    } else if(e.name =="Acount"){
-                        e.value--;
-                    }
-                });
-            } else if($.innerHTML == "+"){
-                inputAmout.forEach(e => {
-                    if(e.name =="Acount"){
-                        e.value++
-                    }
-                })
-            }
+        
+        if ($.nodeName == "BUTTON") {
+            this.plantilla = this.querySelector("#products").children;
+            this.plantilla =  this.plantilla[this.plantilla.length-1];
+            this.plantilla =  this.plantilla.cloneNode(true);
+            document.querySelector("#products").insertAdjacentElement("beforeend", this.plantilla);
         }
     }
 
+
+    send(){
+        let inputs = document.querySelectorAll("input");
+        let info = {}, producto = {}, lista = {},data ={}, count = 0;
+        producto.product = [];
+        inputs.forEach((val, id) => {
+            if (id <= 7) {
+                info[val.name] = val.value;
+            } else if (count <= 4) {
+                lista[val.name] = val.value;
+                count++;
+                if (count == 4) {
+                producto.product.push(lista);
+                lista = {};
+                count = 0;
+                }
+            }
+        });
+        data.info = info;
+        data.producto = producto.product
+        console.log(producto);
+    }
     connectedCallback(){
-        document.adoptedStyleSheets.push(styles);
         this.components().then(html=>{
             this.innerHTML = html;
-            this.container = this.querySelector("#products");
-            this.container.addEventListener("click", this.countSelect)
+            this.add = this.querySelector("#add").addEventListener("click", this.add.bind(this));
+            this.send = this.querySelector("#send").addEventListener("click", this.send.bind(this));
         })
     }
+  
 }
 customElements.define('my-body',myBody);

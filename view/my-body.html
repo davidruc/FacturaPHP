@@ -2,45 +2,20 @@
 <div class="container bg-secondary bg-gradient rounded" style="--bs-bg-opacity: .4; border-style: dashed;">
     <div id="products" class="row gy-2 py-4 my-2 overflow-auto" style="height: 250px">
     <div class="col-md-12 text-center"><h2>Invoice header</h2></div>
-    <div id="product_0" class="row row-cols-sm-2 row-cols-md-6 gx-2 gy-1 py-2">
-        <div class="">
-            <label for="Code_product" class="form-label">Code product</label>
-            <input type="number" class="form-control" name="Code product" id="Code product" placeholder="Enter Code">
-        </div>
-        <div class="">
-            <label for="Name_product" class="form-label">Name product</label>
-            <input type="number" class="form-control" name="Name_product" id="Name_product" placeholder="Enter name">
-        </div>
-        <div class="">
-            <label for="Acount" class="form-label">Acount</label>
-            <input type="number" class="form-control" name="Acount" value ="0" readonly  id="Acount" placeholder="Enter acount">
-        </div>
-        <div class="">
-            <label for="Unit_value" class="form-label">Unit value</label>
-            <input type="number" class="form-control" name="Unit_value" id="Unit_value" placeholder="Enter value">
-        </div>
-        <div class="">
-            <button type="button" class="btn btn-success w-100 h-100" data-row="product_0">+</button>
-        </div>
-        <div class="">
-            <button type="button" class="btn btn-danger w-100 h-100" data-row="product_0">-</button>
-        </div>
-    </div>
+    <my-productdetails></my-productdetails>
 
-
-    
 </div>
 </div>
 <div class="container">
     <div class="row row-cols-sm-3 mt-3">
         <div>
-            <button type="button" class="btn w-100 btn-warning">Add Invoice (+)</button>
+            <button type="button" id="add" class="btn w-100 btn-warning">Add Invoice (+)</button>
         </div>
         <div>
-            <button type="button" class="btn w-100 btn-info">Info</button>
+            <button type="button" id="send" class="btn w-100 btn-info">send</button>
         </div>
         <div>
-            <button type="button" class="btn w-100 btn-dark">Dark</button>
+            <button type="button"  class="btn w-100 btn-dark">Dark</button>
         </div>
     </div>
 </div>
