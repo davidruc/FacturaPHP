@@ -1,6 +1,6 @@
 <?php 
 
-//*0AUTOLAD:  es una técnica que permite cargar automáticamente las clases cuando son necesarias, sin tener que incluir manualmente los archivos de clase en cada punto del código.
+//*AUTOLAD:  es una técnica que permite cargar automáticamente las clases cuando son necesarias, sin tener que incluir manualmente los archivos de clase en cada punto del código.
 
 //Se utiliza la función spl_autoload_register() para registrar una o varias funciones de autoload.
 
@@ -16,6 +16,12 @@ trait getInstance{
         }
         return self::$instance;
     }
+    function __set($name, $value){
+        $this->$name = $value;
+    }
+    function __get($name){
+        return $this->$name;
+    }
 }
 
 function autoload($class){
@@ -25,8 +31,11 @@ function autoload($class){
         //?dirname es la que captura el dominio principal en donde se encuentra el archivo o el dominio de mi web. (la carpeta o repositorio), en una configuración básica el dominio es el nombre de la carpeta en donde se tienen alojados todos los archivos.
         
         //*Esto sirve para salir de las carpeta, es más dinámico, sale y desde afuera busca el archivo :D
-        dirname(__DIR__).'/scripts/db/',
-        dirname(__DIR__).'/scripts/user/',
+        dirname(__DIR__).'/scripts/bill/',
+        dirname(__DIR__).'/scripts/client/',
+        dirname(__DIR__).'/scripts/product/',
+        dirname(__DIR__).'/scripts/seller/',
+        dirname(__DIR__).'/scripts/db/'
     ];
 
     $classFile = str_replace("\\","/", $class).".php"; //*esto me dice coja el nombre y pongale el .php
@@ -45,4 +54,8 @@ function autoload($class){
 
 //!La clase se tiene que llamar igual que el nombre del archivo (para solucionar un archivo con varias clases tengo que usar el namespace)
 spl_autoload_register("autoload"); //Está observando
+ 
+$_DATA = file_get_contents("php://input"); //?Abrase y detecte todas las entradas. ¡Estudiar a fondo!
+$_METHOD = $_SERVER["REQUEST_METHOD"];
+$_HEADER = apache_get_modules
 ?>

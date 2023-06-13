@@ -19,7 +19,7 @@ export class myBody extends HTMLElement{
     }
 
 
-    send(){
+    async send(){
         let inputs = document.querySelectorAll("input");
         let info = {}, producto = {}, lista = {},data ={}, count = 0;
         producto.product = [];
@@ -38,7 +38,9 @@ export class myBody extends HTMLElement{
         });
         data.info = info;
         data.producto = producto.product
-        console.log(producto);
+        
+        let peticion = await (await fetch("uploads/app.php")).text();
+        document.querySelector("pre").innerHTML = res;
     }
     connectedCallback(){
         this.components().then(html=>{
