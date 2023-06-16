@@ -1,5 +1,10 @@
 <?php 
 
+
+// error_reporting(E_ALL);
+// ini_set('display_errors', '1');
+
+
 //*AUTOLAD:  es una técnica que permite cargar automáticamente las clases cuando son necesarias, sin tener que incluir manualmente los archivos de clase en cada punto del código.
 
 //Se utiliza la función spl_autoload_register() para registrar una o varias funciones de autoload.
@@ -19,9 +24,7 @@ trait getInstance{
     function __set($name, $value){
         $this->$name = $value;
     }
-    function __get($name){
-        return $this->$name;
-    }
+    
 }
 
 function autoload($class){
@@ -35,7 +38,7 @@ function autoload($class){
         dirname(__DIR__).'/scripts/client/',
         dirname(__DIR__).'/scripts/product/',
         dirname(__DIR__).'/scripts/seller/',
-        dirname(__DIR__).'/scripts/db/'
+        dirname(__DIR__).'/scripts/db/',
     ];
 
     $classFile = str_replace("\\","/", $class).".php"; //*esto me dice coja el nombre y pongale el .php
@@ -46,16 +49,18 @@ function autoload($class){
         if (file_exists($file)){
             require $file;
             return; //?Si en vez de return pongo break se ven errores a futuro. En una iteración el no detecta el break como ruptura. Ya que en un foreach no puedo controlar la condición, por esto puede fallar.
-        } else {
-            echo "ERROR";
         }
     }
 }
 
-//!La clase se tiene que llamar igual que el nombre del archivo (para solucionar un archivo con varias clases tengo que usar el namespace)
+
 spl_autoload_register("autoload"); //Está observando
+client::getInstance(json_decode(file_get_contents("php://input"), true));
+
+
+//!La clase se tiene que llamar igual que el nombre del archivo (para solucionar un archivo con varias clases tengo que usar el namespace)
  
-$_DATA = file_get_contents("php://input"); //?Abrase y detecte todas las entradas. ¡Estudiar a fondo!
-$_METHOD = $_SERVER["REQUEST_METHOD"];
-$_HEADER = apache_get_modules
+// $_DATA = file_get_contents("php://input"); //?Abrase y detecte todas las entradas. ¡Estudiar a fondo!
+// $_METHOD = $_SERVER["REQUEST_METHOD"];
+
 ?>
