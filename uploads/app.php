@@ -55,7 +55,7 @@ function autoload($class){
 
 
 spl_autoload_register("autoload"); //Está observando
-client::getInstance(json_decode(file_get_contents("php://input"), true));
+client::getInstance(json_decode(file_get_contents("php://input"), true))->postClient();
 
 
 //!La clase se tiene que llamar igual que el nombre del archivo (para solucionar un archivo con varias clases tengo que usar el namespace)
